@@ -7,31 +7,119 @@
 		<link href="assets/styles.css" rel="stylesheet">
 		<style>
 			/* Schrijf hier gewoon je CSS voor dit component */
-
 			/* Hint: welk layout model is handig om content naast elkaar te zetten? */
+			section {
+				display: flex;
+				overflow-x: scroll;
+			}
+
+			@supports (scroll-snap-type: x mandatory) {
+				section {
+					scroll-snap-type: x mandatory;
+				}
+			}
+			
+			article {
+				display: flex;
+				align-items: center;
+				font-size: 2em;
+				font-weight: bold;
+				background-color: var(--purple);
+				height: 10em;
+				text-align: center;
+				width: 30em;
+				flex: 30em 0 0; /* shorthand for flex-grow, flex-shrink and flex-basis */
+				padding: 1em;
+				scroll-snap-align: center; /* snap to center with every scroll */
+
+				width: 70vw;
+				flex-basis: 70vw;
+			}
+
+			article:nth-of-type(2n) {
+				background-color: var(--yellow);
+			}
+
+			article:nth-of-type(3n + 1) {
+				background-color: var(--green)
+			}
+
+			div.carrousel-buttons {
+				display: flex;
+				justify-content: space-between;
+				margin: 1rem;
+				margin-top: -3rem; 
+			}
+
+			div.carrousel-buttons button{
+				background-color: var(--blue);
+				color: var(--green);
+				border: none;
+				border-radius: 0.3rem;
+				padding: 0.5rem;
+				width: 6rem;
+			}
+
 		</style>
+
 		<script type="module">
 			/* Schrijf hier eventueel je client-side JavaScript */
+
+			const prevButton = document.getElementById('prevButton');
+			const nextButton = document.getElementById('nextButton');
+			const section = document.querySelector('section');
+
+			// Event listener for previous button
+			prevButton.addEventListener('click', () => {
+				section.scrollBy({
+				left: -section.offsetWidth, // Scroll to previous item
+				behavior: 'smooth' // Smooth scrolling effect
+				});
+			});
+
+			// Event listener for next button
+			nextButton.addEventListener('click', () => {
+				section.scrollBy({
+				left: section.offsetWidth, // Scroll to next item
+				behavior: 'smooth' // Smooth scrolling effect
+				});
+			});
 		</script>
+
 	</head>
 	<body>
 		<h1>Carrousel</h1>
 
-		<!-- Content
+		<section>
+			<article>
+				<blockquote>“Websites leren bouwen, én praktijkervaring opdoen?”</blockquote>
+			</article>
+ 
+			<article>
+				<blockquote>“FDND is de enige HBO-opleiding voor Frontend Development in Nederland, in twee jaar stomen wij jou klaar voor het werkveld”</blockquote>
+			</article>
 
-		“Websites leren bouwen, én praktijkervaring opdoen?”
+			<article>
+				<blockquote>“Je werkt bij ons aan échte projecten voor échte opdrachtgevers”</blockquote>
+			</article>
 
-		“FDND is de enige HBO-opleiding voor Frontend Development in Nederland, in twee jaar stomen wij jou klaar voor het werkveld”
+			<article>
+				<blockquote>“In het studiomodel werken studenten onder begeleiding van coaches en experts uit het vakgebied aan praktijkgerichte opdrachten”</blockquote>
+			</article>
 
-		“Je werkt bij ons aan échte projecten voor échte opdrachtgevers”
+			<article>
+				<blockquote>“Bij FDND leer je websites bouwen en andere belangrijke skills die jij in de praktijk toe kan passen”</blockquote>
+			</article>
+		
+			<article>
+				<blockquote>“Een Associate degree-opleiding is een tweejarige hbo-opleiding op niveau 5”</blockquote>
+			</article>
+		</section>
 
-		“In het studiomodel werken studenten onder begeleiding van coaches en experts uit het vakgebied aan praktijkgerichte opdrachten”
-
-		“Bij FDND leer je websites bouwen en andere belangrijke skills die jij in de praktijk toe kan passen”
-
-		“Een Associate degree-opleiding is een tweejarige hbo-opleiding op niveau 5”
-
-		-->
+		<div class="carrousel-buttons">
+			<button class="carrousel-button" id="prevButton">Vorige</button>
+			<button class="carrousel-button" id="nextButton">Volgende</button>
+		</div>
 
 		<details open>
 			<summary>Demo video</summary>
